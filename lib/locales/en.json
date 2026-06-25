@@ -1,0 +1,133 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "experience": "Experience",
+    "education": "Education",
+    "certificates": "Certificates",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "Mars IT School Intern",
+    "greeting": "Hi, I'm",
+    "name": "Kamron",
+    "role": "Frontend Developer",
+    "roleSuffix": "& UI Enthusiast",
+    "viewProjects": "View Projects",
+    "getInTouch": "Get in Touch",
+    "resume": "Resume",
+    "yearsExp": "Years Experience",
+    "projectsBuilt": "Projects Built",
+    "technologies": "Technologies"
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Get to know me better",
+    "bio1": "I'm a passionate Frontend Developer and Mars IT School intern specializing in building exceptional digital experiences. With expertise in React and modern web technologies, I create modern, responsive, and user-friendly web applications.",
+    "bio2": "Currently learning and growing at Mars IT School, I'm constantly improving my skills to stay up-to-date with the latest web technologies and best practices. My goal is to create digital experiences that are not only visually appealing but also highly functional and accessible.",
+    "bio3": "When I'm not coding, you can find me exploring new technologies, working on personal projects, and sharing my learning journey through blog posts and social media.",
+    "downloadResume": "Download Resume",
+    "experience": "Experience",
+    "education": "Education",
+    "marsIntern": "Mars IT School Intern",
+    "feature1Title": "Clean Code",
+    "feature1Desc": "Writing maintainable, scalable, and well-documented code.",
+    "feature2Title": "Design Focus",
+    "feature2Desc": "Creating pixel-perfect interfaces with attention to detail.",
+    "feature3Title": "Performance",
+    "feature3Desc": "Optimizing for speed, accessibility, and user experience."
+  },
+  "skills": {
+    "title": "Skills",
+    "subtitle": "Technologies and tools I work with",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "tools": "Tools & DevOps",
+    "currentlyLearning": "🎯 Currently Learning",
+    "learningDesc": "Always expanding my skill set",
+    "skillsOverview": "Skills Overview"
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Things I've built and contributed to",
+    "search": "Search projects...",
+    "all": "All",
+    "source": "Source",
+    "liveDemo": "Live Demo",
+    "noResults": "No projects found matching your criteria.",
+    "featured": "Featured Projects",
+    "featuredSubtitle": "A selection of recent work",
+    "viewAll": "View all projects",
+    "code": "Code",
+    "demo": "Demo"
+  },
+  "experience": {
+    "title": "Experience",
+    "subtitle": "My professional journey",
+    "keyAchievements": "Key Achievements"
+  },
+  "education": {
+    "title": "Education",
+    "subtitle": "My academic background"
+  },
+  "certificates": {
+    "title": "Certificates",
+    "subtitle": "Professional certifications and courses"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Thoughts, tutorials, and insights"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Let's get in touch",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "namePlaceholder": "John Doe",
+    "emailPlaceholder": "john@example.com",
+    "messagePlaceholder": "Tell me about your project...",
+    "send": "Send Message",
+    "sending": "Sending...",
+    "sent": "✓ Message Sent!",
+    "location": "Location",
+    "locationValue": "Tashkent, Uzbekistan",
+    "responseTime": "Response Time",
+    "responseValue": "Within 24 hours",
+    "findMe": "Find me on",
+    "letsWorkTitle": "Let's work",
+    "letsWorkHighlight": "together",
+    "letsWorkDesc": "Have a project in mind or just want to chat? I'm always open to new opportunities and interesting conversations."
+  },
+  "footer": {
+    "copyright": "All rights reserved",
+    "builtWith": "Built with Next.js & Tailwind CSS"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "available": "Available for work",
+    "marsSchool": "Mars IT School"
+  },
+  "loader": {
+    "text": "Loading amazing experience..."
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "login": "Admin Login",
+    "password": "Password",
+    "signIn": "Sign In",
+    "wrongPassword": "Wrong password",
+    "addProject": "Add Project",
+    "editProject": "Edit Project",
+    "deleteProject": "Delete",
+    "saveChanges": "Save Changes",
+    "cancel": "Cancel",
+    "logout": "Logout",
+    "reset": "Reset",
+    "manageProjects": "Manage your projects"
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "nav": {
+    "home": "Bosh sahifa",
+    "about": "Men haqimda",
+    "skills": "Ko'nikmalar",
+    "projects": "Loyihalar",
+    "experience": "Tajriba",
+    "education": "Ta'lim",
+    "certificates": "Sertifikatlar",
+    "contact": "Aloqa"
+  },
+  "hero": {
+    "badge": "Mars IT School Stajyori",
+    "greeting": "Salom, men",
+    "name": "Kamron",
+    "role": "Frontend Dasturchi",
+    "roleSuffix": "& UI Ishtiyoqi",
+    "viewProjects": "Loyihalarim",
+    "getInTouch": "Bog'lanish",
+    "resume": "Rezyume",
+    "yearsExp": "Yillik tajriba",
+    "projectsBuilt": "Loyihalar",
+    "technologies": "Texnologiyalar"
+  },
+  "about": {
+    "title": "Men haqimda",
+    "subtitle": "Meni yaxshiroq tanishing",
+    "bio1": "Men Mars IT School stajyori va Frontend dasturchisiman. React va zamonaviy veb-texnologiyalar yordamida ajoyib raqamli tajribalar yaratishga ixtisoslashganman.",
+    "bio2": "Hozirda Mars IT School'da o'qib, o'z ko'nikmalarimni doimiy ravishda oshirib bormoqdaman. Maqsadim - nafaqat chiroyli, balki funksional va foydalanish uchun qulay veb-ilovalar yaratish.",
+    "bio3": "Kod yozmayotgan paytlarimda yangi texnologiyalarni o'rganaman, shaxsiy loyihalar ustida ishlayman va blog postlari orqali o'z bilimlarimni baham ko'raman.",
+    "downloadResume": "Rezyumeni yuklab olish",
+    "experience": "Tajriba",
+    "education": "Ta'lim",
+    "marsIntern": "Mars IT School Stajyori",
+    "feature1Title": "Toza Kod",
+    "feature1Desc": "Qo'llab-quvvatlanadigan, kengaytiriladigan va hujjatlashtirilgan kod yozish.",
+    "feature2Title": "Dizayn",
+    "feature2Desc": "Pixel-perfect interfeyslarni yaratish.",
+    "feature3Title": "Samaradorlik",
+    "feature3Desc": "Tezlik, foydalanish qulayligi va UX uchun optimallashtirish."
+  },
+  "skills": {
+    "title": "Ko'nikmalar",
+    "subtitle": "Men ishlaydigan texnologiyalar va vositalar",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "tools": "Asboblar",
+    "currentlyLearning": "🎯 Hozirda o'rganyapman",
+    "learningDesc": "Doimiy ravishda ko'nikmalarimni kengaytiryapman",
+    "skillsOverview": "Ko'nikmalar sharhi"
+  },
+  "projects": {
+    "title": "Loyihalar",
+    "subtitle": "Men yaratgan va hissa qo'shgan loyihalar",
+    "search": "Loyihalarni qidirish...",
+    "all": "Barchasi",
+    "source": "Manba",
+    "liveDemo": "Jonli Demo",
+    "noResults": "Loyihalar topilmadi.",
+    "featured": "Tanlangan loyihalar",
+    "featuredSubtitle": "So'nggi ishlarimdan namunalar",
+    "viewAll": "Barcha loyihalar",
+    "code": "Kod",
+    "demo": "Demo"
+  },
+  "experience": {
+    "title": "Tajriba",
+    "subtitle": "Mening professional yo'lim",
+    "keyAchievements": "Asosiy yutuqlar"
+  },
+  "education": {
+    "title": "Ta'lim",
+    "subtitle": "Mening akademik ma'lumotim"
+  },
+  "certificates": {
+    "title": "Sertifikatlar",
+    "subtitle": "Professional sertifikatlar va kurslar"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Fikrlar, darsliklar va tushunchalar"
+  },
+  "contact": {
+    "title": "Aloqa",
+    "subtitle": "Bog'laning",
+    "name": "Ism",
+    "email": "Email",
+    "message": "Xabar",
+    "namePlaceholder": "Aliyev Ali",
+    "emailPlaceholder": "ali@example.com",
+    "messagePlaceholder": "Loyihangiz haqida yozing...",
+    "send": "Yuborish",
+    "sending": "Yuborilmoqda...",
+    "sent": "✓ Xabar yuborildi!",
+    "location": "Joylashuv",
+    "locationValue": "Toshkent, O'zbekiston",
+    "responseTime": "Javob vaqti",
+    "responseValue": "24 soat ichida",
+    "findMe": "Meni toping",
+    "letsWorkTitle": "Keling",
+    "letsWorkHighlight": "birgalikda ishlaymiz",
+    "letsWorkDesc": "Loyihangiz bormi yoki shunchaki suhbatlashmoqchimisiz? Men doim yangi imkoniyatlar va qiziqarli suhbatlar uchun ochiqman."
+  },
+  "footer": {
+    "copyright": "Barcha huquqlar himoyalangan",
+    "builtWith": "Next.js va Tailwind CSS yordamida yaratilgan"
+  },
+  "common": {
+    "loading": "Yuklanmoqda...",
+    "error": "Xato",
+    "success": "Muvaffaqiyatli",
+    "available": "Ish takliflari uchun ochiq",
+    "marsSchool": "Mars IT School"
+  },
+  "loader": {
+    "text": "Ajoyib tajriba yuklanmoqda..."
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "login": "Admin Kirish",
+    "password": "Parol",
+    "signIn": "Kirish",
+    "wrongPassword": "Noto'g'ri parol",
+    "addProject": "Loyiha qo'shish",
+    "editProject": "Loyihani tahrirlash",
+    "deleteProject": "O'chirish",
+    "saveChanges": "Saqlash",
+    "cancel": "Bekor qilish",
+    "logout": "Chiqish",
+    "reset": "Qayta tiklash",
+    "manageProjects": "Loyihalarni boshqarish"
+  }
+}

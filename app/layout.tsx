@@ -7,6 +7,8 @@ import { ParticlesProviderWrapper } from "@/components/home/particles-provider";
 import { ParticlesBackground } from "@/components/home/particles-background";
 import { I18nProvider } from "@/components/home/i18n-provider";
 import { Loader } from "@/components/home/loader";
+import { Sidebar } from "@/components/sidebar";
+import { JarvisWrapper } from "@/components/jarvis-wrapper";
 import "./globals.css";
 
 const unbounded = Unbounded({
@@ -47,7 +49,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${unbounded.variable} ${openSans.variable} ${jetbrainsMono.variable} dark`}
+      className={`${unbounded.variable} ${openSans.variable} ${jetbrainsMono.variable}`}
+      data-theme="dark"
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-background font-sans antialiased">
@@ -59,6 +62,8 @@ export default function RootLayout({
               <Navbar />
               <main className="pt-16">{children}</main>
               <Footer />
+              <JarvisWrapper />
+              <Sidebar />
             </ParticlesProviderWrapper>
           </I18nProvider>
         </ThemeProvider>

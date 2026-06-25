@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { ExternalLink, Search } from "lucide-react";
@@ -16,11 +16,27 @@ export default function ProjectsPage() {
   const { projects } = useAllProjects();
   const [filter, setFilter] = useState<string | null>(null);
   const [search, setSearch] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  // Get unique categories from tags
+  const categories = ["All", "React", "Tailwind", "JavaScript", "Firebase", "API", "HTML"];
+
+  // Ctrl+/ to focus search
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.key === "/") {
+        e.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   const allTags = Array.from(new Set(projects.flatMap((p) => p.tags)));
 
   const filtered = projects.filter((p) => {
-    if (filter && !p.tags.includes(filter)) return false;
+    if (filter && filter !== "All" && !p.tags.includes(filter)) return false;
     if (search && !p.title.toLowerCase().includes(search.toLowerCase()))
       return false;
     return true;
@@ -40,42 +56,36 @@ export default function ProjectsPage() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-10 space-y-4"
           >
+            {/* Search with Ctrl+/ */}
             <div className="relative mx-auto max-w-md">
               <Search
                 size={16}
                 className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
               />
               <input
+                ref={searchRef}
                 type="text"
                 placeholder={t("projects.search")}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full rounded-xl border border-border bg-card py-2.5 pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary/50 focus:outline-none"
+                className="w-full rounded-xl border border-border bg-card py-2.5 pl-10 pr-16 text-sm text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary/50 focus:outline-none"
               />
+              <span className="search-shortcut">Ctrl + /</span>
             </div>
 
+            {/* Category filters */}
             <div className="flex flex-wrap justify-center gap-2">
-              <button
-                onClick={() => setFilter(null)}
-                className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
-                  filter === null
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted text-muted-foreground hover:bg-muted/80"
-                }`}
-              >
-                {t("projects.all")}
-              </button>
-              {allTags.map((tag) => (
+              {categories.map((cat) => (
                 <button
-                  key={tag}
-                  onClick={() => setFilter(filter === tag ? null : tag)}
-                  className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
-                    filter === tag
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-muted-foreground hover:bg-muted/80"
+                  key={cat}
+                  onClick={() => setFilter(filter === cat || (cat === "All" && filter === null) ? null : cat === "All" ? null : cat)}
+                  className={`rounded-full px-4 py-1.5 text-xs font-medium transition-all ${
+                    (filter === cat) || (cat === "All" && filter === null)
+                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
                   }`}
                 >
-                  {tag}
+                  {cat === "All" ? t("projects.all") : cat}
                 </button>
               ))}
             </div>
@@ -99,6 +109,7 @@ export default function ProjectsPage() {
                   transition={{ duration: 0.3 }}
                 >
                   <div className="glass-card group flex h-full flex-col rounded-2xl p-6">
+                    {/* Project image placeholder */}
                     <div className="mb-5 h-44 overflow-hidden rounded-xl bg-gradient-to-br from-primary/15 to-accent/10">
                       <div className="flex h-full items-center justify-center text-5xl text-muted-foreground/30 transition-transform duration-500 group-hover:scale-110">
                         🚀
@@ -112,14 +123,16 @@ export default function ProjectsPage() {
                       {project.description}
                     </p>
 
+                    {/* Tags */}
                     <div className="mb-4 flex flex-wrap gap-1.5">
                       {project.tags.map((tag) => (
                         <Badge key={tag} variant="primary">
-                          {tag}
+                          #{tag}
                         </Badge>
                       ))}
                     </div>
 
+                    {/* Links */}
                     <div className="flex gap-4 pt-3 border-t border-border">
                       <a
                         href={project.github}

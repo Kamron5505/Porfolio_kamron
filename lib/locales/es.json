@@ -1,0 +1,133 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "skills": "Habilidades",
+    "projects": "Proyectos",
+    "experience": "Experiencia",
+    "education": "Educación",
+    "certificates": "Certificados",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "badge": "Pasante de Mars IT School",
+    "greeting": "Hola, soy",
+    "name": "Kamron",
+    "role": "Desarrollador Frontend",
+    "roleSuffix": "& Entusiasta UI",
+    "viewProjects": "Ver Proyectos",
+    "getInTouch": "Contactar",
+    "resume": "Currículum",
+    "yearsExp": "Años de experiencia",
+    "projectsBuilt": "Proyectos realizados",
+    "technologies": "Tecnologías"
+  },
+  "about": {
+    "title": "Sobre mí",
+    "subtitle": "Conóceme mejor",
+    "bio1": "Soy un apasionado desarrollador Frontend y pasante de Mars IT School, especializado en crear experiencias digitales excepcionales. Con experiencia en React y tecnologías web modernas.",
+    "bio2": "Actualmente aprendiendo en Mars IT School, mejorando constantemente mis habilidades para estar al día con las últimas tecnologías web.",
+    "bio3": "Cuando no estoy programando, me encuentras explorando nuevas tecnologías, trabajando en proyectos personales y compartiendo mi aprendizaje.",
+    "downloadResume": "Descargar CV",
+    "experience": "Experiencia",
+    "education": "Educación",
+    "marsIntern": "Pasante Mars IT School",
+    "feature1Title": "Código Limpio",
+    "feature1Desc": "Escribo código mantenible, escalable y bien documentado.",
+    "feature2Title": "Enfoque en Diseño",
+    "feature2Desc": "Creo interfaces pixel-perfect con atención al detalle.",
+    "feature3Title": "Rendimiento",
+    "feature3Desc": "Optimizo velocidad, accesibilidad y experiencia de usuario."
+  },
+  "skills": {
+    "title": "Habilidades",
+    "subtitle": "Tecnologías y herramientas con las que trabajo",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "tools": "Herramientas",
+    "currentlyLearning": "🎯 Actualmente aprendiendo",
+    "learningDesc": "Siempre ampliando mis conocimientos",
+    "skillsOverview": "Resumen de habilidades"
+  },
+  "projects": {
+    "title": "Proyectos",
+    "subtitle": "Lo que he creado",
+    "search": "Buscar proyectos...",
+    "all": "Todos",
+    "source": "Código",
+    "liveDemo": "Demo",
+    "noResults": "No se encontraron proyectos.",
+    "featured": "Proyectos destacados",
+    "featuredSubtitle": "Una selección de trabajos recientes",
+    "viewAll": "Ver todos",
+    "code": "Código",
+    "demo": "Demo"
+  },
+  "experience": {
+    "title": "Experiencia",
+    "subtitle": "Mi trayectoria profesional",
+    "keyAchievements": "Logros clave"
+  },
+  "education": {
+    "title": "Educación",
+    "subtitle": "Mi formación académica"
+  },
+  "certificates": {
+    "title": "Certificados",
+    "subtitle": "Certificaciones y cursos profesionales"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Pensamientos, tutoriales y reflexiones"
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "Pongámonos en contacto",
+    "name": "Nombre",
+    "email": "Email",
+    "message": "Mensaje",
+    "namePlaceholder": "Juan Pérez",
+    "emailPlaceholder": "juan@example.com",
+    "messagePlaceholder": "Cuéntame sobre tu proyecto...",
+    "send": "Enviar mensaje",
+    "sending": "Enviando...",
+    "sent": "✓ Mensaje enviado!",
+    "location": "Ubicación",
+    "locationValue": "Taskent, Uzbekistán",
+    "responseTime": "Tiempo de respuesta",
+    "responseValue": "Dentro de 24 horas",
+    "findMe": "Encuéntrame en",
+    "letsWorkTitle": "Trabajemos",
+    "letsWorkHighlight": "juntos",
+    "letsWorkDesc": "¿Tienes un proyecto o quieres charlar? Siempre estoy abierto a nuevas oportunidades."
+  },
+  "footer": {
+    "copyright": "Todos los derechos reservados",
+    "builtWith": "Hecho con Next.js y Tailwind CSS"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "available": "Disponible para trabajar",
+    "marsSchool": "Mars IT School"
+  },
+  "loader": {
+    "text": "Cargando experiencia increíble..."
+  },
+  "admin": {
+    "title": "Panel de Administración",
+    "login": "Inicio de sesión",
+    "password": "Contraseña",
+    "signIn": "Iniciar sesión",
+    "wrongPassword": "Contraseña incorrecta",
+    "addProject": "Añadir proyecto",
+    "editProject": "Editar proyecto",
+    "deleteProject": "Eliminar",
+    "saveChanges": "Guardar cambios",
+    "cancel": "Cancelar",
+    "logout": "Cerrar sesión",
+    "reset": "Restablecer",
+    "manageProjects": "Gestionar proyectos"
+  }
+}

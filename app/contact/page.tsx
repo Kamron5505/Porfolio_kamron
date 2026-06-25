@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { Send, Mail, MapPin, Clock } from "lucide-react";
+import { Send, Mail, MapPin, Clock, Phone, MessageCircle } from "lucide-react";
 import { GithubIcon, LinkedinIcon, TelegramIcon, InstagramIcon } from "@/components/ui/icons";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
@@ -55,6 +55,7 @@ export default function ContactPage() {
           />
 
           <div className="grid gap-8 lg:grid-cols-5">
+            {/* Contact Form */}
             <motion.div
               variants={fadeUp}
               initial="hidden"
@@ -137,6 +138,7 @@ export default function ContactPage() {
               </div>
             </motion.div>
 
+            {/* Contact Info */}
             <motion.div
               variants={staggerContainer}
               initial="hidden"
@@ -161,6 +163,34 @@ export default function ContactPage() {
                 <div className="glass-card rounded-2xl p-5">
                   <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary/10 text-secondary">
+                      <Phone size={18} />
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Phone</p>
+                      <p className="text-sm font-medium">+998 XX XXX XX XX</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div variants={fadeUp} custom={3}>
+                <div className="glass-card rounded-2xl p-5">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                      <MessageCircle size={18} />
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Telegram</p>
+                      <p className="text-sm font-medium">@kamronfazilov</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div variants={fadeUp} custom={4}>
+                <div className="glass-card rounded-2xl p-5">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
                       <MapPin size={18} />
                     </div>
                     <div>
@@ -171,7 +201,7 @@ export default function ContactPage() {
                 </div>
               </motion.div>
 
-              <motion.div variants={fadeUp} custom={3}>
+              <motion.div variants={fadeUp} custom={5}>
                 <div className="glass-card rounded-2xl p-5">
                   <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
@@ -187,7 +217,7 @@ export default function ContactPage() {
                 </div>
               </motion.div>
 
-              <motion.div variants={fadeUp} custom={4}>
+              <motion.div variants={fadeUp} custom={6}>
                 <div className="glass-card rounded-2xl p-5">
                   <p className="mb-3 text-sm font-medium">{t("contact.findMe")}</p>
                   <div className="flex gap-2">

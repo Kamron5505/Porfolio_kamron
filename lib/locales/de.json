@@ -1,0 +1,133 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "about": "Über mich",
+    "skills": "Fähigkeiten",
+    "projects": "Projekte",
+    "experience": "Erfahrung",
+    "education": "Bildung",
+    "certificates": "Zertifikate",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "badge": "Praktikant bei Mars IT School",
+    "greeting": "Hallo, ich bin",
+    "name": "Kamron",
+    "role": "Frontend-Entwickler",
+    "roleSuffix": "& UI-Enthusiast",
+    "viewProjects": "Projekte ansehen",
+    "getInTouch": "Kontakt aufnehmen",
+    "resume": "Lebenslauf",
+    "yearsExp": "Jahre Erfahrung",
+    "projectsBuilt": "Projekte umgesetzt",
+    "technologies": "Technologien"
+  },
+  "about": {
+    "title": "Über mich",
+    "subtitle": "Lernen Sie mich kennen",
+    "bio1": "Ich bin ein leidenschaftlicher Frontend-Entwickler und Praktikant bei Mars IT School, spezialisiert auf die Entwicklung außergewöhnlicher digitaler Erlebnisse mit React und modernen Webtechnologien.",
+    "bio2": "Derzeit lerne ich bei Mars IT School und verbessere ständig meine Fähigkeiten, um mit den neuesten Webtechnologien Schritt zu halten.",
+    "bio3": "Wenn ich nicht gerade programmiere, erkunde ich neue Technologien, arbeite an persönlichen Projekten und teile meine Lernerfahrungen.",
+    "downloadResume": "Lebenslauf herunterladen",
+    "experience": "Erfahrung",
+    "education": "Bildung",
+    "marsIntern": "Praktikant Mars IT School",
+    "feature1Title": "Sauberer Code",
+    "feature1Desc": "Ich schreibe wartbaren, skalierbaren und gut dokumentierten Code.",
+    "feature2Title": "Design-Fokus",
+    "feature2Desc": "Pixel-perfekte Oberflächen mit Liebe zum Detail.",
+    "feature3Title": "Leistung",
+    "feature3Desc": "Optimierung für Geschwindigkeit, Zugänglichkeit und Benutzererfahrung."
+  },
+  "skills": {
+    "title": "Fähigkeiten",
+    "subtitle": "Technologien und Werkzeuge, mit denen ich arbeite",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "tools": "Werkzeuge",
+    "currentlyLearning": "🎯 Derzeit lerne ich",
+    "learningDesc": "Erweitere ständig meine Fähigkeiten",
+    "skillsOverview": "Fähigkeitenübersicht"
+  },
+  "projects": {
+    "title": "Projekte",
+    "subtitle": "Was ich erstellt habe",
+    "search": "Projekte suchen...",
+    "all": "Alle",
+    "source": "Quellcode",
+    "liveDemo": "Live-Demo",
+    "noResults": "Keine Projekte gefunden.",
+    "featured": "Ausgewählte Projekte",
+    "featuredSubtitle": "Eine Auswahl aktueller Arbeiten",
+    "viewAll": "Alle ansehen",
+    "code": "Code",
+    "demo": "Demo"
+  },
+  "experience": {
+    "title": "Erfahrung",
+    "subtitle": "Mein beruflicher Werdegang",
+    "keyAchievements": "Wichtige Erfolge"
+  },
+  "education": {
+    "title": "Bildung",
+    "subtitle": "Mein akademischer Hintergrund"
+  },
+  "certificates": {
+    "title": "Zertifikate",
+    "subtitle": "Professionelle Zertifizierungen und Kurse"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Gedanken, Tutorials und Einblicke"
+  },
+  "contact": {
+    "title": "Kontakt",
+    "subtitle": "Nehmen Sie Kontakt auf",
+    "name": "Name",
+    "email": "E-Mail",
+    "message": "Nachricht",
+    "namePlaceholder": "Max Mustermann",
+    "emailPlaceholder": "max@example.com",
+    "messagePlaceholder": "Erzählen Sie mir von Ihrem Projekt...",
+    "send": "Nachricht senden",
+    "sending": "Wird gesendet...",
+    "sent": "✓ Nachricht gesendet!",
+    "location": "Standort",
+    "locationValue": "Taschkent, Usbekistan",
+    "responseTime": "Antwortzeit",
+    "responseValue": "Innerhalb von 24 Stunden",
+    "findMe": "Finden Sie mich auf",
+    "letsWorkTitle": "Lasst uns",
+    "letsWorkHighlight": "zusammenarbeiten",
+    "letsWorkDesc": "Haben Sie ein Projekt oder möchten Sie einfach plaudern? Ich bin immer offen für neue Möglichkeiten."
+  },
+  "footer": {
+    "copyright": "Alle Rechte vorbehalten",
+    "builtWith": "Erstellt mit Next.js & Tailwind CSS"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "available": "Für Arbeit verfügbar",
+    "marsSchool": "Mars IT School"
+  },
+  "loader": {
+    "text": "Lade unglaubliches Erlebnis..."
+  },
+  "admin": {
+    "title": "Admin-Panel",
+    "login": "Admin-Login",
+    "password": "Passwort",
+    "signIn": "Anmelden",
+    "wrongPassword": "Falsches Passwort",
+    "addProject": "Projekt hinzufügen",
+    "editProject": "Projekt bearbeiten",
+    "deleteProject": "Löschen",
+    "saveChanges": "Änderungen speichern",
+    "cancel": "Abbrechen",
+    "logout": "Abmelden",
+    "reset": "Zurücksetzen",
+    "manageProjects": "Projekte verwalten"
+  }
+}

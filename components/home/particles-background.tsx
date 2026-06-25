@@ -8,14 +8,15 @@ export function ParticlesBackground() {
 
   useEffect(() => {
     const checkTheme = () => {
-      setIsDark(document.documentElement.classList.contains("dark"));
+      const theme = document.documentElement.getAttribute("data-theme");
+      setIsDark(theme === "dark" || theme === "hacker" || theme === "ocean" || theme === "neon" || theme === "amethyst" || !theme);
     };
     checkTheme();
 
     const observer = new MutationObserver(checkTheme);
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ["class"],
+      attributeFilter: ["data-theme"],
     });
 
     return () => observer.disconnect();

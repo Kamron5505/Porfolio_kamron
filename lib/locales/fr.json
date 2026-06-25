@@ -1,0 +1,133 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "skills": "Compétences",
+    "projects": "Projets",
+    "experience": "Expérience",
+    "education": "Formation",
+    "certificates": "Certificats",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "Stagiaire chez Mars IT School",
+    "greeting": "Bonjour, je suis",
+    "name": "Kamron",
+    "role": "Développeur Frontend",
+    "roleSuffix": "& Passionné UI",
+    "viewProjects": "Voir les projets",
+    "getInTouch": "Me contacter",
+    "resume": "CV",
+    "yearsExp": "Années d'expérience",
+    "projectsBuilt": "Projets réalisés",
+    "technologies": "Technologies"
+  },
+  "about": {
+    "title": "À propos de moi",
+    "subtitle": "Apprenez à me connaître",
+    "bio1": "Je suis un développeur Frontend passionné et stagiaire chez Mars IT School, spécialisé dans la création d'expériences numériques exceptionnelles avec React et les technologies web modernes.",
+    "bio2": "Actuellement en formation à Mars IT School, j'améliore constamment mes compétences pour rester à jour avec les dernières technologies web.",
+    "bio3": "Quand je ne code pas, vous pouvez me trouver en train d'explorer de nouvelles technologies, de travailler sur des projets personnels et de partager mon apprentissage.",
+    "downloadResume": "Télécharger CV",
+    "experience": "Expérience",
+    "education": "Formation",
+    "marsIntern": "Stagiaire Mars IT School",
+    "feature1Title": "Code Propre",
+    "feature1Desc": "J'écris un code maintenable, évolutif et bien documenté.",
+    "feature2Title": "Design",
+    "feature2Desc": "Je crée des interfaces pixel-perfect avec une attention aux détails.",
+    "feature3Title": "Performance",
+    "feature3Desc": "J'optimise la vitesse, l'accessibilité et l'expérience utilisateur."
+  },
+  "skills": {
+    "title": "Compétences",
+    "subtitle": "Technologies et outils avec lesquels je travaille",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "tools": "Outils",
+    "currentlyLearning": "🎯 En cours d'apprentissage",
+    "learningDesc": "J'élargis toujours mes compétences",
+    "skillsOverview": "Aperçu des compétences"
+  },
+  "projects": {
+    "title": "Projets",
+    "subtitle": "Ce que j'ai créé",
+    "search": "Rechercher des projets...",
+    "all": "Tous",
+    "source": "Code source",
+    "liveDemo": "Démo",
+    "noResults": "Aucun projet trouvé.",
+    "featured": "Projets vedettes",
+    "featuredSubtitle": "Une sélection de travaux récents",
+    "viewAll": "Voir tous",
+    "code": "Code",
+    "demo": "Démo"
+  },
+  "experience": {
+    "title": "Expérience",
+    "subtitle": "Mon parcours professionnel",
+    "keyAchievements": "Réalisations clés"
+  },
+  "education": {
+    "title": "Formation",
+    "subtitle": "Mon parcours académique"
+  },
+  "certificates": {
+    "title": "Certificats",
+    "subtitle": "Certifications et cours professionnels"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Pensées, tutoriels et réflexions"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Entrons en contact",
+    "name": "Nom",
+    "email": "Email",
+    "message": "Message",
+    "namePlaceholder": "Jean Dupont",
+    "emailPlaceholder": "jean@example.com",
+    "messagePlaceholder": "Parlez-moi de votre projet...",
+    "send": "Envoyer",
+    "sending": "Envoi en cours...",
+    "sent": "✓ Message envoyé !",
+    "location": "Localisation",
+    "locationValue": "Tachkent, Ouzbékistan",
+    "responseTime": "Délai de réponse",
+    "responseValue": "Sous 24 heures",
+    "findMe": "Retrouvez-moi sur",
+    "letsWorkTitle": "Travaillons",
+    "letsWorkHighlight": "ensemble",
+    "letsWorkDesc": "Vous avez un projet ou envie de discuter ? Je suis toujours ouvert aux nouvelles opportunités."
+  },
+  "footer": {
+    "copyright": "Tous droits réservés",
+    "builtWith": "Créé avec Next.js et Tailwind CSS"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "available": "Disponible pour travailler",
+    "marsSchool": "Mars IT School"
+  },
+  "loader": {
+    "text": "Chargement d'une expérience incroyable..."
+  },
+  "admin": {
+    "title": "Panneau d'administration",
+    "login": "Connexion admin",
+    "password": "Mot de passe",
+    "signIn": "Connecter",
+    "wrongPassword": "Mot de passe incorrect",
+    "addProject": "Ajouter un projet",
+    "editProject": "Modifier le projet",
+    "deleteProject": "Supprimer",
+    "saveChanges": "Enregistrer",
+    "cancel": "Annuler",
+    "logout": "Déconnexion",
+    "reset": "Réinitialiser",
+    "manageProjects": "Gérer les projets"
+  }
+}

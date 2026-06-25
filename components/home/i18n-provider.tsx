@@ -12,13 +12,15 @@ const languages = [
   { code: "en", label: "English", flag: "🇬🇧" },
   { code: "ru", label: "Русский", flag: "🇷🇺" },
   { code: "uz", label: "O'zbek", flag: "🇺🇿" },
+  { code: "es", label: "Español", flag: "🇪🇸" },
+  { code: "fr", label: "Français", flag: "🇫🇷" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪" },
 ];
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    // i18n is already initialized, just mark as ready
     setReady(true);
   }, []);
 
@@ -55,7 +57,7 @@ export function LanguageSwitcher() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className="absolute right-0 mt-2 w-40 origin-top-right overflow-hidden rounded-xl border border-border bg-card shadow-xl backdrop-blur-xl"
+            className="absolute right-0 mt-2 w-44 origin-top-right overflow-hidden rounded-xl border border-border bg-card shadow-xl backdrop-blur-xl z-50"
           >
             {languages.map((lang) => (
               <button

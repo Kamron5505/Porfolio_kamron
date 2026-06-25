@@ -4,10 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Palette } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/components/theme-provider";
+import { useTheme, type Theme } from "@/components/theme-provider";
 import { LanguageSwitcher } from "@/components/home/i18n-provider";
 import { NAV_LINKS } from "@/lib/constants";
 
@@ -24,10 +24,11 @@ const navLabels: Record<string, string> = {
 
 export function Navbar() {
   const pathname = usePathname();
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setTheme, themes, themeLabels, themeIcons } = useTheme();
   const { t } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [themeOpen, setThemeOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -56,7 +57,9 @@ export function Navbar() {
           <span className="hidden text-lg font-bold font-display tracking-tight sm:block">
             Kamron
           </span>
-        </Link>          <div className="hidden items-center gap-1 lg:flex">
+        </Link>
+
+        <div className="hidden items-center gap-1 lg:flex">
           {NAV_LINKS.map((link) => {
             const active = pathname === link.href;
             return (
@@ -88,15 +91,51 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-2">
-          <LanguageSwitcher />
+          {/* Theme selector */}
+          <div className="relative">
+            <button
+              onClick={() => setThemeOpen(!themeOpen)}
+              className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              aria-label="Switch theme"
+            >
+              <Palette size={16} />
+            </button>
 
-          <button
-            onClick={toggleTheme}
-            className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
+            <AnimatePresence>
+              {themeOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute right-0 mt-2 w-48 origin-top-right overflow-hidden rounded-xl border border-border bg-card shadow-xl backdrop-blur-xl z-50"
+                >
+                  {themes.map((t: Theme) => (
+                    <button
+                      key={t}
+                      onClick={() => {
+                        setTheme(t);
+                        setThemeOpen(false);
+                      }}
+                      className={`flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm transition-colors ${
+                        theme === t
+                          ? "bg-primary/10 text-primary font-medium"
+                          : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                      }`}
+                    >
+                      <span className="text-base">{themeIcons[t]}</span>
+                      <span>{themeLabels[t]}</span>
+                      {theme === t && (
+                        <span className="ml-auto h-1.5 w-1.5 rounded-full bg-primary" />
+                      )}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          <LanguageSwitcher />
 
           <button
             onClick={() => setMobileOpen((o) => !o)}

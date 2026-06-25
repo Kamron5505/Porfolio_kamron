@@ -8,36 +8,75 @@ import {
   useState,
 } from "react";
 
-type Theme = "light" | "dark";
+export type Theme = "dark" | "light" | "hacker" | "ocean" | "neon" | "amethyst";
+
+const THEMES: Theme[] = ["dark", "light", "hacker", "ocean", "neon", "amethyst"];
+
+const THEME_LABELS: Record<Theme, string> = {
+  dark: "Dark",
+  light: "Light",
+  hacker: "Hacker",
+  ocean: "Ocean",
+  neon: "Neon",
+  amethyst: "Amethyst",
+};
+
+const THEME_ICONS: Record<Theme, string> = {
+  dark: "🌙",
+  light: "☀️",
+  hacker: "💚",
+  ocean: "🌊",
+  neon: "💜",
+  amethyst: "🔮",
+};
 
 interface ThemeContextValue {
   theme: Theme;
-  toggleTheme: () => void;
+  setTheme: (theme: Theme) => void;
+  cycleTheme: () => void;
+  themes: typeof THEMES;
+  themeLabels: typeof THEME_LABELS;
+  themeIcons: typeof THEME_ICONS;
 }
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setThemeState] = useState<Theme>("dark");
+
+  const applyTheme = useCallback((t: Theme) => {
+    document.documentElement.setAttribute("data-theme", t);
+    localStorage.setItem("theme", t);
+  }, []);
 
   useEffect(() => {
     const stored = localStorage.getItem("theme") as Theme | null;
-    const preferred = stored ?? "dark";
-    setTheme(preferred);
-    document.documentElement.classList.toggle("dark", preferred === "dark");
-  }, []);
+    const preferred = stored && THEMES.includes(stored) ? stored : "dark";
+    setThemeState(preferred);
+    applyTheme(preferred);
+  }, [applyTheme]);
 
-  const toggleTheme = useCallback(() => {
-    setTheme((prev) => {
-      const next = prev === "dark" ? "light" : "dark";
-      localStorage.setItem("theme", next);
-      document.documentElement.classList.toggle("dark", next === "dark");
+  const setTheme = useCallback(
+    (t: Theme) => {
+      setThemeState(t);
+      applyTheme(t);
+    },
+    [applyTheme]
+  );
+
+  const cycleTheme = useCallback(() => {
+    setThemeState((prev) => {
+      const idx = THEMES.indexOf(prev);
+      const next = THEMES[(idx + 1) % THEMES.length];
+      applyTheme(next);
       return next;
     });
-  }, []);
+  }, [applyTheme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider
+      value={{ theme, setTheme, cycleTheme, themes: THEMES, themeLabels: THEME_LABELS, themeIcons: THEME_ICONS }}
+    >
       {children}
     </ThemeContext.Provider>
   );
@@ -45,7 +84,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
 const defaultTheme: ThemeContextValue = {
   theme: "dark",
-  toggleTheme: () => {},
+  setTheme: () => {},
+  cycleTheme: () => {},
+  themes: THEMES,
+  themeLabels: THEME_LABELS,
+  themeIcons: THEME_ICONS,
 };
 
 export function useTheme() {

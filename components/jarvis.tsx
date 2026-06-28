@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mic, MicOff, Sparkles, X } from "lucide-react";
+import { Mic, MicOff, Sparkles, X, Keyboard, Send } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "@/components/theme-provider";
 import { useTranslation } from "react-i18next";
@@ -28,7 +28,14 @@ export function Jarvis() {
   const [transcript, setTranscript] = useState("");
   const [feedback, setFeedback] = useState("");
   const [showIntro, setShowIntro] = useState(true);
+  const [textMode, setTextMode] = useState(false);
+  const [hoverOpen, setHoverOpen] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [chatHistory, setChatHistory] = useState<Array<{type: 'cmd' | 'response'; text: string}>>([]);
+  const feedbackRef = useRef("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const recognitionRef = useRef<any>(null);
+  const recognitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const intentionalStopRef = useRef(false);
   const hasAutoStartedRef = useRef(false);
   const router = useRouter();
@@ -109,15 +116,19 @@ export function Jarvis() {
   }, []);
 
   const showFeedback = useCallback((msg: string) => {
+    feedbackRef.current = msg;
     setFeedback(msg);
-    setTimeout(() => setFeedback(""), 2500);
+    setTimeout(() => {
+      setFeedback("");
+      feedbackRef.current = "";
+    }, 2500);
   }, []);
 
   const commands: Command[] = mounted
     ? [
         // ====== CONVERSATION — ENGLISH ======
         {
-          words: ["hello", "hi", "hey"],
+          words: ["hello", "hi", "hey", "jarvis"],
           action: () => {
             const replies = ["Hello, sir! How may I assist you today?", "Greetings, sir! At your service.", "Hello! How can I help you?"];
             speak(replies[Math.floor(Math.random() * replies.length)]);
@@ -199,7 +210,7 @@ export function Jarvis() {
         },
         // ====== CONVERSATION — РУССКИЙ ======
         {
-          words: ["привет", "здравствуйте", "здравствуй"],
+          words: ["привет", "здравствуйте", "здравствуй", "жарвис", "джарвис"],
           action: () => {
             const replies = ["Здравствуйте, сэр! Чем могу помочь?", "Приветствую, сэр! Всегда к вашим услугам.", "Здравствуйте! Рад вас видеть."];
             speak(replies[Math.floor(Math.random() * replies.length)], "ru");
@@ -281,7 +292,7 @@ export function Jarvis() {
         },
         // ====== CONVERSATION — O'ZBEK ======
         {
-          words: ["salom", "assalomu alaykum"],
+          words: ["salom", "assalomu alaykum", "jarvis"],
           action: () => {
             const replies = ["Assalomu alaykum, xizmatlaringizdamiz!", "Salom! Sizga qanday yordam bera olaman?", "Salom, janob! Xizmatingizdamiz."];
             speak(replies[Math.floor(Math.random() * replies.length)], "uz");
@@ -339,47 +350,47 @@ export function Jarvis() {
         },
         // ====== NAVIGATION ======
         {
-          words: ["home", "bosh sahifa", "главная", "startseite", "accueil", "inicio"],
+          words: ["home", "bosh sahifa", "главная", "главную", "домой", "startseite", "accueil", "inicio"],
           action: () => { router.push("/"); showFeedback("→ Home"); },
           description: "Go to home page",
         },
         {
-          words: ["about", "about me", "men haqimda", "обо мне", "über mich", "à propos", "sobre mí"],
+          words: ["about", "about me", "men haqimda", "обо мне", "обомне", "über mich", "à propos", "sobre mí"],
           action: () => { router.push("/about"); showFeedback("→ About"); },
           description: "Go to About page",
         },
         {
-          words: ["skills", "ko'nikmalar", "навыки", "fähigkeiten", "compétences", "habilidades"],
+          words: ["skills", "ko'nikmalar", "навыки", "навык", "fähigkeiten", "compétences", "habilidades"],
           action: () => { router.push("/skills"); showFeedback("→ Skills"); },
           description: "Go to Skills page",
         },
         {
-          words: ["projects", "project", "loyihalar", "проекты", "projekte", "projets", "proyectos"],
+          words: ["projects", "project", "loyihalar", "проекты", "проект", "проектов", "projekte", "projets", "proyectos"],
           action: () => { router.push("/projects"); showFeedback("→ Projects"); },
           description: "Go to Projects page",
         },
         {
-          words: ["experience", "tajriba", "опыт", "erfahrung", "expérience", "experiencia"],
+          words: ["experience", "tajriba", "опыт", "опыта", "erfahrung", "expérience", "experiencia"],
           action: () => { router.push("/experience"); showFeedback("→ Experience"); },
           description: "Go to Experience page",
         },
         {
-          words: ["education", "ta'lim", "образование", "bildung", "formation", "educación"],
+          words: ["education", "ta'lim", "образование", "образования", "bildung", "formation", "educación"],
           action: () => { router.push("/education"); showFeedback("→ Education"); },
           description: "Go to Education page",
         },
         {
-          words: ["certificates", "sertifikatlar", "сертификаты", "zertifikate", "certificats", "certificados"],
+          words: ["certificates", "sertifikatlar", "сертификаты", "сертификат", "сертификатов", "zertifikate", "certificats", "certificados"],
           action: () => { router.push("/certificates"); showFeedback("→ Certificates"); },
           description: "Go to Certificates page",
         },
         {
-          words: ["contact", "aloqa", "контакты", "kontakt", "contacto"],
+          words: ["contact", "aloqa", "контакты", "контакт", "kontakt", "contacto"],
           action: () => { router.push("/contact"); showFeedback("→ Contact"); },
           description: "Go to Contact page",
         },
         {
-          words: ["blog", "блок"],
+          words: ["blog", "блок", "блог"],
           action: () => { router.push("/blog"); showFeedback("→ Blog"); },
           description: "Go to Blog page",
         },
@@ -423,17 +434,17 @@ export function Jarvis() {
           description: "Switch to German",
         },
         {
-          words: ["scroll down", "pastga", "вниз", "runter", "descendre", "abajo"],
+          words: ["scroll down", "pastga", "вниз", "внизу", "внизу страницы", "runter", "descendre", "abajo"],
           action: () => { window.scrollBy({ top: 400, behavior: "smooth" }); showFeedback("↓ Scrolling down"); },
           description: "Scroll down",
         },
         {
-          words: ["scroll up", "yuqoriga", "вверх", "rauf", "monter", "arriba"],
+          words: ["scroll up", "yuqoriga", "вверх", "наверх", "rauf", "monter", "arriba"],
           action: () => { window.scrollBy({ top: -400, behavior: "smooth" }); showFeedback("↑ Scrolling up"); },
           description: "Scroll up",
         },
         {
-          words: ["top", "beginning", "начало", "anfang", "début", "principio"],
+          words: ["top", "beginning", "начало", "в начало", "начала", "anfang", "début", "principio"],
           action: () => { window.scrollTo({ top: 0, behavior: "smooth" }); showFeedback("↟ Back to top"); },
           description: "Scroll to top",
         },
@@ -455,7 +466,7 @@ export function Jarvis() {
           description: "Refresh page",
         },
         {
-          words: ["search", "search projects", "найти", "поиск", "qidirish"],
+          words: ["search", "search projects", "найти", "поиск", "поищи", "qidirish"],
           action: () => {
             // Focus the search input on projects page
             const searchInput = document.querySelector<HTMLInputElement>('input[type="text"], input[placeholder*="Search" i], input[placeholder*="Поиск" i], input[placeholder*="Qidirish" i]');
@@ -566,13 +577,21 @@ export function Jarvis() {
       fr: "fr-FR",
       de: "de-DE",
     };
-    // IMPORTANT: continuous=false for reliable speech detection on all browsers
-    // After each utterance, onend fires and we restart automatically
-    recognition.continuous = false;
+    // Use continuous=true to keep a single persistent connection to speech servers.
+    // On unstable networks this works better than continuous=false (which reconnects after each phrase).
+    recognition.continuous = true;
     recognition.interimResults = true;
     recognition.lang = langMap[i18n.language] || "ru-RU";
 
+    const clearRecTimeout = () => {
+      if (recognitionTimeoutRef.current) {
+        clearTimeout(recognitionTimeoutRef.current);
+        recognitionTimeoutRef.current = null;
+      }
+    };
+
     recognition.onresult = (event: any) => {
+      clearRecTimeout();
       const current = event.resultIndex;
       const transcriptText = event.results[current][0].transcript;
       setTranscript(transcriptText);
@@ -580,23 +599,34 @@ export function Jarvis() {
       if (event.results[current].isFinal) {
         const handled = processCommandRef.current(transcriptText);
         if (!handled && transcriptText.trim()) {
-          showFeedback(`❓ Command not recognized: "${transcriptText}"`);
+          showFeedback(`❓ Not recognized: "${transcriptText}"`);
+          // Add to chat history for review
+          setChatHistory((prev) => [...prev, { type: 'cmd', text: transcriptText }, { type: 'response', text: `❓ Not recognized: "${transcriptText}"` }]);
+        } else if (handled) {
+          setChatHistory((prev) => [...prev, { type: 'cmd', text: transcriptText }]);
         }
-        setTimeout(() => setTranscript(""), 1500);
+        setTimeout(() => setTranscript(""), 3000);
       }
     };
 
     recognition.onerror = (event: any) => {
+      clearRecTimeout();
       if (event.error === "aborted") return;
       if (event.error === "no-speech") {
         showFeedback("🔇 Say something...");
         return;
       }
-      console.error("Speech recognition error", event.error);
+      console.error("Speech recognition error:", event.error, event.message || "");
       setIsListening(false);
       if (event.error === "not-allowed") {
         intentionalStopRef.current = true;
         showFeedback("⚠️ Microphone access denied. Allow microphone in browser settings.");
+      } else if (event.error === "network") {
+        showFeedback("🌐 Network error — speech recognition needs internet");
+      } else if (event.error === "language-not-supported") {
+        showFeedback("🌍 Language not supported for speech recognition");
+      } else {
+        showFeedback(`⚠️ Speech error: ${event.error}`);
       }
     };
 
@@ -605,16 +635,42 @@ export function Jarvis() {
       if (!intentionalStopRef.current && recognitionRef.current === recognition) {
         try {
           recognition.start();
-        } catch {}
-        return;
+          // Reset timeout on restart too
+          clearRecTimeout();
+          recognitionTimeoutRef.current = setTimeout(() => {
+            showFeedback("⏱ No response from speech server — check your internet");
+            setIsListening(false);
+            intentionalStopRef.current = true;
+            try { recognition.abort(); } catch {}
+          }, 6000);
+          return; // restart succeeded, stay listening
+        } catch (e) {
+          console.error("Failed to restart speech recognition:", e);
+        }
+        // restart failed — fall through to stop listening
       }
       setIsListening(false);
     };
 
     recognitionRef.current = recognition;
-    recognition.start();
-    setIsListening(true);
-    showFeedback("🎤 Listening...");
+    try {
+      recognition.start();
+      setIsListening(true);
+      showFeedback("🎤 Listening...");
+      // Set a timeout: if no onresult/onerror within 6s, show internet warning
+      clearRecTimeout();
+      recognitionTimeoutRef.current = setTimeout(() => {
+        showFeedback("⏱ No response from speech recognition — need internet?");
+        setIsListening(false);
+        intentionalStopRef.current = true;
+        try { recognition.abort(); } catch {}
+      }, 6000);
+    } catch (e) {
+      console.error("Failed to start speech recognition:", e);
+      showFeedback("⚠️ Could not start speech recognition. Check mic and internet.");
+      setIsListening(false);
+      return;
+    }
   }, [supported, processCommand, showFeedback, i18n.language, requestMicPermission]);
 
   const stopListening = useCallback(() => {
@@ -639,6 +695,10 @@ export function Jarvis() {
   useEffect(() => {
     return () => {
       intentionalStopRef.current = true;
+      if (recognitionTimeoutRef.current) {
+        clearTimeout(recognitionTimeoutRef.current);
+        recognitionTimeoutRef.current = null;
+      }
       if (recognitionRef.current) {
         try { recognitionRef.current.stop(); } catch {}
       }
@@ -671,37 +731,260 @@ export function Jarvis() {
     return () => clearTimeout(timer);
   }, [i18n.language]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Text command handlers (must be before conditional return to follow Rules of Hooks)
+  const handleTextCommand = useCallback((text: string) => {
+    const trimmed = text.trim();
+    if (!trimmed) return;
+    setChatHistory((prev) => [...prev, { type: 'cmd', text: trimmed }]);
+    setInputValue("");
+    const handled = processCommand(trimmed);
+    if (!handled) {
+      const feedbackMsg = `❓ Command not recognized: "${trimmed}"`;
+      showFeedback(feedbackMsg);
+      setChatHistory((prev) => [...prev, { type: 'response', text: feedbackMsg }]);
+    } else {
+      // Use ref to get the actual feedback message (avoids stale closure with feedback state)
+      const responseText = feedbackRef.current || '✅ Command executed';
+      setChatHistory((prev) => [...prev, { type: 'response', text: responseText }]);
+    }
+  }, [processCommand, showFeedback]);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleTextCommand(inputValue);
+    }
+  }, [handleTextCommand, inputValue]);
+
+  useEffect(() => {
+    if (textMode && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [textMode]);
+
   // Don't render anything until mounted (prevents hydration mismatch)
   if (!mounted) return null;
-  // Don't render button if browser doesn't support speech recognition
-  if (!supported) return null;
+
+  // If speech recognition is not supported, always show text mode
+  const showVoiceButton = supported;
 
   return (
     <>
-      {/* Jarvis toggle button */}
-      <button
-        onClick={toggleListening}
-        onMouseEnter={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-[100] flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-white shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95"
-        style={{
-          boxShadow: isListening
-            ? "0 0 30px color-mix(in srgb, var(--primary) 50%, transparent)"
-            : "0 4px 20px rgba(0,0,0,0.3)",
-        }}
-        aria-label={isListening ? "Stop Jarvis" : "Activate Jarvis"}
+      {/* Main Jarvis container — hover keeps help panel open while reading */}
+      <div
+        onMouseEnter={() => setHoverOpen(true)}
+        onMouseLeave={() => setHoverOpen(false)}
+        className="fixed bottom-6 right-6 z-[100]"
       >
-        {isListening ? (
-          <motion.div
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="jarvis-pulse flex h-14 w-14 items-center justify-center rounded-full"
-          >
-            <MicOff size={22} className="text-white" />
-          </motion.div>
-        ) : (
-          <Mic size={22} className="text-white" />
-        )}
-      </button>
+        {/* Jarvis Help Panel — inside the container so hover stays active */}
+        <AnimatePresence>
+          {(hoverOpen || isOpen) && !isListening && (
+            <motion.div
+              initial={{ opacity: 0, x: 300 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 300 }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="absolute bottom-full right-0 mb-3 w-80 max-h-[60vh] overflow-y-auto rounded-2xl border border-border bg-card/95 shadow-2xl backdrop-blur-xl"
+            >
+              <div className="p-4">
+                <div className="mb-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Sparkles size={16} className="text-primary" />
+                    <h3 className="font-display text-sm font-semibold">Jarvis Voice Assistant</h3>
+                  </div>
+                  <button
+                    onClick={() => { setIsOpen(false); setHoverOpen(false); }}
+                    className="flex h-6 w-6 items-center justify-center rounded-full bg-muted text-muted-foreground hover:bg-muted-foreground/20"
+                  >
+                    <X size={12} />
+                  </button>
+                </div>
+                <p className="mb-3 text-xs text-muted-foreground">
+                  🎤 Speak naturally — Jarvis responds in EN / RU / UZ.
+                </p>
+                <p className="mb-3 text-xs text-muted-foreground">
+                  💬 Say &quot;Jarvis&quot;, &quot;жарвис&quot; or &quot;salom&quot; to start chatting!
+                </p>
+
+                {showIntro && (
+                  <div className="mb-3 rounded-lg bg-primary/10 p-3 text-xs text-primary">
+                    🎤 Jarvis is ready! Try saying &quot;hello&quot;, &quot;привет&quot;, or &quot;home&quot;
+                  </div>
+                )}
+
+                <div className="space-y-2">
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    💬 Conversation
+                  </p>
+                  <div className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-1.5">
+                    <span className="text-xs text-foreground">Say hi / how are you</span>
+                    <span className="text-[10px] text-muted-foreground">EN / RU / UZ</span>
+                  </div>
+                  <div className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-1.5">
+                    <span className="text-xs text-foreground">Good morning / bye / thanks</span>
+                    <span className="text-[10px] text-muted-foreground">All languages</span>
+                  </div>
+
+                  <p className="mt-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    🧭 Navigation
+                  </p>
+                  {["Home", "About", "Skills", "Projects", "Contact"].map((cmd) => (
+                    <div key={cmd} className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-1.5">
+                      <span className="text-xs text-foreground">{cmd} page</span>
+                      <span className="text-[10px] text-muted-foreground">Say &quot;{cmd.toLowerCase()}&quot;</span>
+                    </div>
+                  ))}
+
+                  <p className="mt-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    🎨 Theme & Language
+                  </p>
+                  <div className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-1.5">
+                    <span className="text-xs text-foreground">Switch theme</span>
+                    <span className="text-[10px] text-muted-foreground">Say theme name</span>
+                  </div>
+                  <div className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-1.5">
+                    <span className="text-xs text-foreground">Switch language</span>
+                    <span className="text-[10px] text-muted-foreground">Say language name</span>
+                  </div>
+
+                  <p className="mt-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    🔧 Utilities
+                  </p>
+                  {["scroll down", "go back", "refresh", "search", "github", "telegram"].map((cmd) => (
+                    <div key={cmd} className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-1.5">
+                      <span className="text-xs text-foreground">{cmd}</span>
+                      <span className="text-[10px] text-muted-foreground">Say it</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Buttons area */}
+        <div className="flex flex-col items-end gap-3">
+          {/* Text mode chat UI */}
+          {textMode && (
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              className="w-72 overflow-hidden rounded-2xl border border-border bg-card/95 shadow-2xl backdrop-blur-xl"
+            >
+              {/* Chat header */}
+              <div className="flex items-center justify-between border-b border-border px-4 py-3">
+                <div className="flex items-center gap-2">
+                  <Sparkles size={14} className="text-primary" />
+                  <span className="text-xs font-semibold text-foreground">Jarvis Chat</span>
+                </div>
+                <button
+                  onClick={() => setTextMode(false)}
+                  className="flex h-5 w-5 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground"
+                >
+                  <X size={11} />
+                </button>
+              </div>
+
+              {/* Chat history */}
+              <div className="max-h-52 overflow-y-auto px-3 py-2 space-y-1.5">
+                {chatHistory.length === 0 && (
+                  <p className="text-[10px] text-muted-foreground text-center py-4">
+                    Type a command below, e.g. "home", "about", "dark theme"
+                  </p>
+                )}
+                {chatHistory.map((msg, i) => (
+                  <div
+                    key={i}
+                    className={`rounded-lg px-3 py-2 text-xs ${
+                      msg.type === 'cmd'
+                        ? 'bg-primary/10 text-primary ml-4'
+                        : 'bg-muted/50 text-foreground mr-4'
+                    }`}
+                  >
+                    {msg.text}
+                  </div>
+                ))}
+              </div>
+
+              {/* Chat input */}
+              <div className="border-t border-border px-3 py-2.5">
+                <div className="flex items-center gap-2">
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder="Type a command..."
+                    className="flex-1 rounded-lg bg-muted px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground outline-none focus:ring-1 focus:ring-primary/50"
+                  />
+                  <button
+                    onClick={() => handleTextCommand(inputValue)}
+                    className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary text-primary-foreground hover:opacity-90"
+                  >
+                    <Send size={12} />
+                  </button>
+                </div>
+                <p className="mt-1.5 text-[9px] text-muted-foreground">
+                  Try: home, about, dark, english, help
+                </p>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Buttons row */}
+          <div className="flex items-center gap-2">
+            {/* Text mode toggle button - always visible */}
+            <button
+              onClick={() => setTextMode(!textMode)}
+              className={`flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card/80 text-muted-foreground shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:text-foreground active:scale-95 ${
+                textMode ? 'ring-2 ring-primary/50' : ''
+              }`}
+              aria-label="Open text chat"
+              title="Text commands"
+            >
+              <Keyboard size={16} />
+            </button>
+
+            {/* Voice button - only if supported */}
+            {showVoiceButton && (
+              <button
+                onClick={toggleListening}
+                className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-white shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95"
+                style={{
+                  boxShadow: isListening
+                    ? "0 0 30px color-mix(in srgb, var(--primary) 50%, transparent)"
+                    : "0 4px 20px rgba(0,0,0,0.3)",
+                }}
+                aria-label={isListening ? "Stop Jarvis" : "Activate Jarvis"}
+              >
+                {isListening ? (
+                  <motion.div
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                    className="jarvis-pulse flex h-14 w-14 items-center justify-center rounded-full"
+                  >
+                    <MicOff size={22} className="text-white" />
+                  </motion.div>
+                ) : (
+                  <Mic size={22} className="text-white" />
+                )}
+              </button>
+            )}
+
+            {/* If no voice support, show a bigger text button */}
+            {!showVoiceButton && (
+              <button
+                onClick={() => setTextMode(!textMode)}
+                className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-white shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95"
+                aria-label="Open Jarvis chat"
+              >
+                <Sparkles size={22} />
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
 
       {/* Listening indicator */}
       <AnimatePresence>
@@ -764,89 +1047,6 @@ export function Jarvis() {
           >
             <div className="rounded-xl border border-primary/30 bg-card px-4 py-2.5 text-sm font-medium shadow-xl backdrop-blur-xl">
               {feedback}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Jarvis Help Panel */}
-      <AnimatePresence>
-        {isOpen && !isListening && (
-          <motion.div
-            initial={{ opacity: 0, x: 300 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 300 }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed bottom-24 right-6 z-[100] w-80 max-h-[60vh] overflow-y-auto rounded-2xl border border-border bg-card/95 shadow-2xl backdrop-blur-xl"
-          >
-            <div className="p-4">
-              <div className="mb-3 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Sparkles size={16} className="text-primary" />
-                  <h3 className="font-display text-sm font-semibold">Jarvis Voice Assistant</h3>
-                </div>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="flex h-6 w-6 items-center justify-center rounded-full bg-muted text-muted-foreground hover:bg-muted-foreground/20"
-                >
-                  <X size={12} />
-                </button>
-              </div>
-              <p className="mb-3 text-xs text-muted-foreground">
-                🎤 Just speak naturally — Jarvis with original British voice.
-              </p>
-
-              {showIntro && (
-                <div className="mb-3 rounded-lg bg-primary/10 p-3 text-xs text-primary">
-                  🎤 Jarvis is ready! Try saying &quot;hello&quot;, &quot;привет&quot;, or &quot;home&quot;
-                </div>
-              )}
-
-              <div className="space-y-2">
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                  💬 Conversation
-                </p>
-                <div className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-1.5">
-                  <span className="text-xs text-foreground">Say hi / how are you</span>
-                  <span className="text-[10px] text-muted-foreground">EN / RU / UZ</span>
-                </div>
-                <div className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-1.5">
-                  <span className="text-xs text-foreground">Good morning / bye / thanks</span>
-                  <span className="text-[10px] text-muted-foreground">All languages</span>
-                </div>
-
-                <p className="mt-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                  🧭 Navigation
-                </p>
-                {["Home", "About", "Skills", "Projects", "Contact"].map((cmd) => (
-                  <div key={cmd} className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-1.5">
-                    <span className="text-xs text-foreground">{cmd} page</span>
-                    <span className="text-[10px] text-muted-foreground">Say &quot;{cmd.toLowerCase()}&quot;</span>
-                  </div>
-                ))}
-
-                <p className="mt-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                  🎨 Theme & Language
-                </p>
-                <div className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-1.5">
-                  <span className="text-xs text-foreground">Switch theme</span>
-                  <span className="text-[10px] text-muted-foreground">Say theme name</span>
-                </div>
-                <div className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-1.5">
-                  <span className="text-xs text-foreground">Switch language</span>
-                  <span className="text-[10px] text-muted-foreground">Say language name</span>
-                </div>
-
-                <p className="mt-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                  🔧 Utilities
-                </p>
-                {["scroll down", "go back", "refresh", "search", "github", "telegram"].map((cmd) => (
-                  <div key={cmd} className="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-1.5">
-                    <span className="text-xs text-foreground">{cmd}</span>
-                    <span className="text-[10px] text-muted-foreground">Say it</span>
-                  </div>
-                ))}
-              </div>
             </div>
           </motion.div>
         )}

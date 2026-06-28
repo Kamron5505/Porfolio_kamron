@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/footer";
 import { ParticlesProviderWrapper } from "@/components/home/particles-provider";
 import { ParticlesBackground } from "@/components/home/particles-background";
 import { I18nProvider } from "@/components/home/i18n-provider";
+import { AOSProvider } from "@/components/home/aos-provider";
 import { Loader } from "@/components/home/loader";
 import { Sidebar } from "@/components/sidebar";
 import { JarvisWrapper } from "@/components/jarvis-wrapper";
@@ -56,15 +57,17 @@ export default function RootLayout({
       <body className="min-h-screen bg-background font-sans antialiased">
         <ThemeProvider>
           <I18nProvider>
-            <Loader />
-            <ParticlesProviderWrapper>
-              <ParticlesBackground />
-              <Navbar />
-              <main className="pt-16">{children}</main>
-              <Footer />
-              <JarvisWrapper />
-              <Sidebar />
-            </ParticlesProviderWrapper>
+            <AOSProvider>
+              <Loader />
+              <ParticlesProviderWrapper>
+                <ParticlesBackground />
+                <Navbar />
+                <main className="pt-16">{children}</main>
+                <Footer />
+                <JarvisWrapper />
+                <Sidebar />
+              </ParticlesProviderWrapper>
+            </AOSProvider>
           </I18nProvider>
         </ThemeProvider>
       </body>

@@ -6,6 +6,9 @@ export const SITE = {
   url: "https://kamron-fazilov.vercel.app",
   author: "Kamron Fazilov",
   email: "kama58077@gmail.com",
+  phone: "+998 97 090 05 50",
+  telegram: "@programmer_1107",
+  workHours: "10:00 — 22:00",
 } as const;
 
 export const NAV_LINKS = [
@@ -22,7 +25,7 @@ export const NAV_LINKS = [
 export const SOCIAL_LINKS = [
   { name: "GitHub", url: "https://github.com/kamronfazilov", icon: "github" },
   { name: "LinkedIn", url: "https://linkedin.com/in/kamronfazilov", icon: "linkedin" },
-  { name: "Telegram", url: "https://t.me/kamronfazilov", icon: "send" },
+  { name: "Telegram", url: "https://t.me/programmer_1107", icon: "send" },
   { name: "Instagram", url: "https://instagram.com/kamronfazilov", icon: "instagram" },
   { name: "Email", url: "mailto:kamronfazilov@example.com", icon: "mail" },
 ] as const;

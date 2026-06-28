@@ -167,7 +167,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground">Phone</p>
-                      <p className="text-sm font-medium">+998 XX XXX XX XX</p>
+                      <p className="text-sm font-medium">{SITE.phone}</p>
                     </div>
                   </div>
                 </div>
@@ -181,7 +181,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground">Telegram</p>
-                      <p className="text-sm font-medium">@kamronfazilov</p>
+                      <p className="text-sm font-medium">{SITE.telegram}</p>
                     </div>
                   </div>
                 </div>
@@ -211,7 +211,7 @@ export default function ContactPage() {
                       <p className="text-xs text-muted-foreground">
                         {t("contact.responseTime")}
                       </p>
-                      <p className="text-sm font-medium">{t("contact.responseValue")}</p>
+                      <p className="text-sm font-medium">{SITE.workHours}</p>
                     </div>
                   </div>
                 </div>

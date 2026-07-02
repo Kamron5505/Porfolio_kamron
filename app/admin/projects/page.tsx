@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -10,6 +10,9 @@ import {
   LogOut,
   ExternalLink,
   X,
+  Upload,
+  Image as ImageIcon,
+  Link,
 } from "lucide-react";
 import { GithubIcon } from "@/components/ui/icons";
 import { useAdminAuth, useAdminProjects, type AdminProject } from "@/lib/admin/use-admin-projects";
@@ -37,6 +40,11 @@ export default function AdminProjectsPage() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [form, setForm] = useState<FormData>(emptyForm);
   const [confirmDelete, setConfirmDelete] = useState<number | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imageError, setImageError] = useState(false);
+  const [useUrlInput, setUseUrlInput] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   if (!isAuthenticated) {
     router.replace("/admin/login");
@@ -52,6 +60,9 @@ export default function AdminProjectsPage() {
     setForm(emptyForm);
     setEditingId(null);
     setShowForm(false);
+    setImagePreview(null);
+    setImageError(false);
+    setUseUrlInput(false);
   };
 
   const openEdit = (p: AdminProject) => {
@@ -63,8 +74,51 @@ export default function AdminProjectsPage() {
       github: p.github,
       demo: p.demo,
     });
+    setImagePreview(p.image || null);
+    setImageError(false);
     setEditingId(p.id);
     setShowForm(true);
+  };
+
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Show preview immediately (local data URL)
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const dataUrl = event.target?.result as string;
+      setImagePreview(dataUrl);
+      setImageError(false);
+    };
+    reader.readAsDataURL(file);
+
+    // Upload to server
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        alert(err.error || "Upload failed");
+        // Keep preview so user can retry
+        return;
+      }
+
+      const data = await res.json();
+      setForm({ ...form, image: data.url });
+    } catch {
+      alert("Failed to upload image. Make sure the server is running.");
+      // Keep preview so user can retry
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -188,19 +242,120 @@ export default function AdminProjectsPage() {
                     />
                   </div>
 
-                  <div>
+                  <div className="sm:col-span-2">
                     <label className="mb-1 block text-xs font-medium text-muted-foreground">
-                      Image URL
+                      Cover Image
                     </label>
-                    <input
-                      type="text"
-                      value={form.image}
-                      onChange={(e) =>
-                        setForm({ ...form, image: e.target.value })
-                      }
-                      className="w-full rounded-xl border border-border bg-card px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary/50 focus:outline-none"
-                      placeholder="/projects/project.jpg"
-                    />
+
+                    {/* Image preview */}
+                    {imagePreview && !imageError && (
+                      <div className="relative mb-3 overflow-hidden rounded-xl border border-border">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={imagePreview}
+                          alt="Preview"
+                          className="h-48 w-full object-cover"
+                          onError={() => setImageError(true)}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setImagePreview(null);
+                            setImageError(false);
+                            setForm({ ...form, image: "" });
+                          }}
+                          className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-lg bg-black/50 text-white transition-colors hover:bg-black/70"
+                        >
+                          <X size={14} />
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Fallback for broken image */}
+                    {imagePreview && imageError && (
+                      <div className="relative mb-3 overflow-hidden rounded-xl border border-border">
+                        <div className="flex h-48 w-full items-center justify-center bg-muted text-sm text-muted-foreground">
+                          Image preview unavailable
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setImagePreview(null);
+                            setImageError(false);
+                            setForm({ ...form, image: "" });
+                          }}
+                          className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-lg bg-black/50 text-white transition-colors hover:bg-black/70"
+                        >
+                          <X size={14} />
+                        </button>
+                      </div>
+                    )}
+
+                    <div className="flex gap-2">
+                      {/* File upload */}
+                      {!useUrlInput && (
+                        <label
+                          className={`flex cursor-pointer items-center gap-2 rounded-xl border border-dashed border-border px-4 py-2.5 text-sm transition-colors hover:border-primary/50 ${uploading ? "pointer-events-none opacity-50" : ""}`}
+                        >
+                          <Upload size={16} className="text-muted-foreground" />
+                          <span className="text-muted-foreground">
+                            {uploading ? "Uploading..." : "Upload file"}
+                          </span>
+                          <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept="image/jpeg,image/png,image/webp,image/gif"
+                            onChange={handleFileSelect}
+                            disabled={uploading}
+                            className="hidden"
+                          />
+                        </label>
+                      )}
+
+                      {/* URL input toggle */}
+                      {!useUrlInput ? (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setUseUrlInput(true);
+                            setImageError(false);
+                          }}
+                          className="flex items-center gap-2 rounded-xl border border-border px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground"
+                        >
+                          <Link size={16} />
+                          Use URL
+                        </button>
+                      ) : (
+                        <div className="flex w-full gap-2">
+                          <input
+                            type="text"
+                            value={form.image}
+                            onChange={(e) => {
+                              setForm({ ...form, image: e.target.value });
+                              if (e.target.value) {
+                                setImagePreview(e.target.value);
+                                setImageError(false);
+                              }
+                            }}
+                            className="w-full rounded-xl border border-border bg-card px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary/50 focus:outline-none"
+                            placeholder="/projects/project.jpg"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setUseUrlInput(false);
+                              if (!form.image) {
+                                setImagePreview(null);
+                                setImageError(false);
+                              }
+                            }}
+                            className="flex items-center gap-2 rounded-xl border border-border px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground"
+                          >
+                            <ImageIcon size={16} />
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <div>

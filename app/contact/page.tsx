@@ -63,7 +63,7 @@ export default function ContactPage() {
               custom={0}
               className="lg:col-span-3"
             >
-              <div className="glass-card rounded-2xl p-8">
+              <div className="glass-card rounded-2xl p-5 sm:p-6 md:p-8">
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid gap-5 sm:grid-cols-2">
                     <div>

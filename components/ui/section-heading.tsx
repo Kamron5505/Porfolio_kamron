@@ -33,7 +33,7 @@ export function SectionHeading({
         <span className="gradient-text-static">{title}</span>
       </h2>
       {subtitle && (
-        <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg md:text-xl">
+        <p className="mx-auto mt-4 max-w-2xl text-center text-base text-muted-foreground sm:text-lg md:text-xl">
           {subtitle}
         </p>
       )}

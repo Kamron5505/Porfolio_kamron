@@ -77,8 +77,8 @@ export default function EducationPage() {
                       <div className="absolute h-2 w-2 rounded-full bg-primary animate-pulse" />
                     </div>
 
-                    <div className="glass-card group rounded-2xl p-6 transition-all duration-300 hover:border-primary/30">
-                      <div className="mb-3 flex items-start justify-between gap-4">
+                    <div className="glass-card group rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:border-primary/30">
+                      <div                      className="mb-3 flex-col sm:flex-row items-start gap-3 sm:gap-4">
                         <div className="flex items-center gap-3">
                           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
                             {i === 0 ? <GraduationCap size={20} /> : <BookOpen size={20} />}

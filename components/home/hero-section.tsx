@@ -88,7 +88,7 @@ export function HeroSection() {
         <motion.div
           variants={fadeUp}
           custom={6}
-          className="mt-20 flex gap-12 border-t border-border pt-8"
+          className="mt-20 flex flex-wrap gap-8 sm:gap-12 border-t border-border pt-8"
         >
           {[
             { value: "1+", label: t("hero.yearsExp") },

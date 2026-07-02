@@ -65,11 +65,12 @@ export default function AboutPage() {
           >
             {/* Bio section */}
             <motion.div variants={fadeUp} custom={0} className="space-y-6">
-              <div className="mx-auto aspect-square max-w-sm overflow-hidden rounded-3xl bg-gradient-to-br from-primary/20 via-secondary/10 to-accent/20 lg:mx-0 animate-float">
-                <div className="flex h-full flex-col items-center justify-center text-6xl">
-                  <span>👨‍💻</span>
-                  <span className="mt-2 text-sm font-medium text-primary">{t("common.marsSchool")}</span>
-                </div>
+              <div className="mx-auto aspect-square max-w-[200px] sm:max-w-sm overflow-hidden rounded-3xl bg-gradient-to-br from-primary/20 via-secondary/10 to-accent/20 lg:mx-0 animate-float">
+                <img
+                  src="/images/avatar.png"
+                  alt="Kamron Fazilov"
+                  className="h-full w-full object-cover"
+                />
               </div>
 
               <div className="space-y-4 text-muted-foreground leading-relaxed">
@@ -90,7 +91,7 @@ export default function AboutPage() {
                 <h3 className="mb-6 font-display text-2xl">{t("about.experience")}</h3>
                 <div className="space-y-4">
                   {EXPERIENCE.map((exp) => (
-                    <div key={exp.id} className="glass-card rounded-2xl p-6">
+                    <div key={exp.id} className="glass-card rounded-2xl p-5 sm:p-6">
                       <div className="flex items-start justify-between gap-4">
                         <div>
                           <h4 className="font-semibold">{exp.role}</h4>
@@ -121,7 +122,7 @@ export default function AboutPage() {
                 <h3 className="mb-6 font-display text-2xl">{t("about.education")}</h3>
                 <div className="space-y-4">
                   {EDUCATION.map((edu) => (
-                    <div key={edu.id} className="glass-card rounded-2xl p-6">
+                    <div key={edu.id} className="glass-card rounded-2xl p-5 sm:p-6">
                       <div className="flex items-start justify-between gap-4">
                         <div>
                           <h4 className="font-semibold">{edu.degree}</h4>
@@ -161,7 +162,7 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.07 }}
-                  className="glass-card group flex items-center gap-2.5 rounded-xl px-5 py-3"
+                  className="glass-card group flex items-center gap-2 rounded-xl px-3.5 py-2.5 sm:gap-2.5 sm:px-5 sm:py-3"
                 >
                   {(() => {
                     const Icon = techIcons[tech.name];
